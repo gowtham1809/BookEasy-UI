@@ -1,0 +1,72 @@
+@import "../../index";
+.bookings-container {
+  max-width: 600px;
+  margin: 32px auto;
+  background: $card-bg;
+  padding: 32px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(24, 144, 255, 0.08);
+}
+.bookings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 12px;
+  .ant-typography {
+    font-weight: 700;
+    color: $primary-color;
+  }
+  .ant-btn {
+    font-weight: 600;
+    color: $primary-color;
+  }
+}
+.no-bookings {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding: 40px;
+  color: $muted-color;
+}
+
+.no-bookings-icon {
+  font-size: 72px;
+}
+
+.booking-card {
+  border: 1px solid $border-color;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.06);
+  margin-bottom: 18px;
+  background: $background-light;
+}
+
+.booking-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.booking-confirmed-icon {
+  font-size: 24px;
+  color: $success-color;
+}
+
+.booking-status {
+  background-color: $available-bg;
+  color: $success-color;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.booking-details > p {
+  margin: 4px 0;
+}

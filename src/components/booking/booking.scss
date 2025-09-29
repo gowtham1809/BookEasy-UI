@@ -1,0 +1,43 @@
+@import "../../index";
+.booking-container {
+  max-width: 600px;
+  margin: 32px auto;
+  background: $card-bg;
+  padding: 32px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(24, 144, 255, 0.08);
+}
+
+.user-details {
+  background: $background-light;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: $primary-color;
+  border: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-typography {
+    color: $primary-color;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+}
+
+.selected-slot-info {
+  background-color: $background-light;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: $primary-color;
+  border: 1px solid $border-color;
+}

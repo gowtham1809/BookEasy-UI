@@ -1,0 +1,50 @@
+
+@import "../../index";
+
+.register-container {
+  min-height: 100vh;
+  background: $card-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(24, 144, 255, 0.08);
+  background: $background-light;
+  border: 1px solid $border-color;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.register-title {
+  margin-bottom: 4px;
+  color: $primary-color;
+}
+
+.register-button {
+  border-radius: 8px;
+  background: $primary-color;
+  color: $card-bg;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  box-shadow: 0 4px 15px rgba(24, 144, 255, 0.12);
+  &:hover {
+    background: $success-color !important;
+    color: $card-bg !important;
+    box-shadow: 0 6px 20px rgba(82, 196, 26, 0.18) !important;
+  }
+  &:disabled {
+    background: $muted-color !important;
+    color: $card-bg !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}

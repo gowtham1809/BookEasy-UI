@@ -1,0 +1,217 @@
+@import "../../index";
+
+.seats-container {
+  padding: 32px 24px;
+  background: $card-bg;
+  min-height: 100vh;
+  color: $primary-color;
+
+  .ant-typography {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .screen-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+    .screen {
+      background: $primary-color;
+      color: $card-bg;
+      padding: 8px 60px;
+      border-radius: 20px 20px 0 0;
+      font-weight: bold;
+      font-size: 16px;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 15px rgba(24, 144, 255, 0.12);
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 40px solid transparent;
+        border-right: 40px solid transparent;
+        border-top: 10px solid $primary-color;
+      }
+    }
+  }
+
+  .seat-map {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    background: $background-light;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.04);
+  }
+
+  .seat-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+
+    .seat-section {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+  }
+
+  .aisle {
+    width: 40px; // center gap
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 1px;
+    }
+  }
+
+  .seat {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+    border-radius: 10px !important;
+    border: 2px solid $border-color !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: pointer;
+
+    background: $card-bg !important;
+    color: $primary-color !important;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.06),
+      inset 0 1px 0 $background-light !important;
+
+    &:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 24px rgba(24, 144, 255, 0.12),
+        inset 0 1px 0 $background-light !important;
+      border-color: $primary-color !important;
+    }
+    &.selected {
+      border-color: $success-color !important;
+      background: $available-bg !important;
+      color: $success-color !important;
+    }
+    &.booked {
+      border-color: $error-color !important;
+      background: $booked-bg !important;
+      color: $error-color !important;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  .seats-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+
+    .ant-btn {
+      flex: 1;
+      height: 45px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      background: $primary-color;
+      color: $card-bg;
+      border: none;
+      box-shadow: 0 4px 15px rgba(24, 144, 255, 0.12);
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .seats-container {
+    padding: 15px;
+    border-radius: 8px;
+
+    
+    .seat-map {
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .seat-row {
+      gap: 8px;
+    }
+
+    .seat {
+      width: 28px !important;
+      height: 28px !important;
+      min-width: 28px !important;
+      font-size: 10px !important;
+      border-radius: 7px !important;
+    }
+
+    .aisle {
+      width: 24px;
+    }
+
+    .seats-footer {
+      // flex-direction: column;
+
+      .ant-btn {
+        height: 40px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .seats-container {
+    padding: 15px;
+    border-radius: 8px;
+
+    .seat-map {
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .seat-row {
+      gap: 8px;
+    }
+
+    .seat {
+      width: 22px !important;
+      height: 22px !important;
+      min-width: 20px !important;
+      font-size: 8px !important;
+      border-radius: 4px !important;
+    }
+
+    .aisle {
+      width: 24px;
+    }
+
+    .seats-footer {
+      .ant-btn {
+        height: 35px;
+        font-size: 14px;
+      }
+    }
+  }
+}

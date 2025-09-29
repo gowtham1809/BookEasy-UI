@@ -1,0 +1,77 @@
+// Backgrounds
+$bg-gradient-start: #1a1a2e;
+$bg-gradient-end: #16213e;
+$text-color: #fff;
+
+// Additional colors
+$primary-color: #1890ff;
+$secondary-color: #6c757d;
+$success-color: #52c41a;
+$error-color: #ff4d4f;
+$warning-color: #faad14;
+$info-color: #13c2c2;
+$background-light: #f0f2f5;
+$background-dark: #141414;
+$border-color: #d9d9d9;
+$muted-color: #8c8c8c;
+$card-bg: #fff;
+
+// Screen
+$screen-gradient-start: #ff6b6b;
+$screen-gradient-end: #ee5a24;
+$screen-shadow: rgba(238, 90, 36, 0.3);
+$screen-arrow: #ee5a24;
+
+// Map / Container
+$map-bg: rgba(255, 255, 255, 0.05);
+$map-radius: 15px;
+$map-blur: 10px;
+
+// Seat colors
+$seat-gradient-start: #4ecdc4;
+$seat-gradient-end: #44a08d;
+$seat-shadow: rgba(68, 160, 141, 0.3);
+$seat-shadow-hover: rgba(68, 160, 141, 0.4);
+$seat-border-hover: rgba(255, 255, 255, 0.3);
+$seat-inset: rgba(255, 255, 255, 0.2);
+$seat-inset-hover: rgba(255, 255, 255, 0.3);
+
+// Buttons
+$btn-bg: rgba(255, 255, 255, 0.1);
+$btn-border: rgba(255, 255, 255, 0.3);
+$btn-bg-hover: rgba(255, 255, 255, 0.2);
+$btn-border-hover: rgba(255, 255, 255, 0.5);
+
+$btn-primary-gradient-start: #ff6b6b;
+$btn-primary-gradient-end: #ee5a24;
+$btn-primary-shadow: rgba(238, 90, 36, 0.3);
+$btn-primary-hover-gradient-start: #ff5252;
+$btn-primary-hover-gradient-end: #e55100;
+$btn-primary-hover-shadow: rgba(238, 90, 36, 0.4);
+$btn-primary-disabled-bg: rgba(255, 255, 255, 0.1);
+$btn-primary-disabled-text: rgba(255, 255, 255, 0.3);
+
+// Slot statuses
+$available-border: #52c41a;
+$available-bg: #f6ffed;
+$available-status-bg: #d1fae5;
+$available-status-border: #6ee7b7;
+
+$booked-border: #ff4d4f;
+$booked-bg: #fff1f0;
+$booked-status-bg: #fecaca;
+$booked-status-border: #fca5a5;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

@@ -1,70 +1,147 @@
-# Getting Started with Create React App
+# EasyBooking UI Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the EasyBooking UI project! It explains the structure, features, and usage of the app, folder by folder and feature by feature.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Project Overview](#project-overview)
+- [Folder Structure](#folder-structure)
+- [Feature Overview](#feature-overview)
+- [How the App Works](#how-the-app-works)
+- [Key Screens & Features](#key-screens--features)
+- [How to Run the App](#how-to-run-the-app)
+- [FAQ](#faq)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Overview
 
-### `npm test`
+EasyBooking UI is a modern web application for booking  slots. It is designed to be user-friendly, responsive, and visually appealing. You can log in, view available slots, select seats, make bookings, and manage your account.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Folder Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── components/
+│   ├── booking/        # Booking form and details
+│   ├── seats/          # Seat selection UI
+├── features/
+│   ├── bookings/       # My Bookings page
+│   ├── login/          # Login page
+│   ├── register/       # Registration page
+│   ├── slots/          # Slot selection page
+├── redux/
+│   ├── reducer.tsx     # State management logic
+│   ├── saga.tsx        # Async actions (API calls)
+│   ├── selector.tsx    # State selectors
+│   ├── store.tsx       # Redux store setup
+├── routes/
+│   └── index.tsx       # App routing (navigation)
+├── services/
+│   └── apis.tsx        # API definitions
+├── utils/
+│   └── dateUtils.tsx   # Date formatting helpers
+├── layout.tsx          # Main layout wrapper
+├── layout.scss         # Layout styles
+├── index.tsx           # App entry point
+├── index.scss          # Global styles and variables
+├── auth.tsx            # Authentication logic
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Feature Overview
 
-### `npm run eject`
+### 1. Authentication
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Login**: Enter email and password to access the app.
+- **Register**: Create a new account with name, email, and password.
+- **Auth.tsx**: Handles user authentication and redirects.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Slot Selection
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Slots Page**: View available time slots for booking.
+- **Select a date**: Use the date picker to choose your travel date.
+- **See slot status**: Available or booked slots are color-coded.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 3. Seat Selection
 
-## Learn More
+- **Seats Page**: Choose your seat from a visual seat map.
+- **Aisle and sections**: Seats are divided with a visible aisle for clarity.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 4. Booking
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Booking Form**: Enter details and confirm your booking.
+- **User details**: If logged in, your info is pre-filled.
+- **Success/Error messages**: Toast notifications for feedback.
 
-### Code Splitting
+### 5. My Bookings
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Bookings Page**: View all your bookings, with details like date, time, seat, and price.
+- **Status**: See if your booking is confirmed.
 
-### Analyzing the Bundle Size
+### 6. Layout & Navigation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Header**: Fixed at the top, always visible.
+- **Content**: Scrolls below the header.
+- **Navigation**: Use the menu or buttons to move between pages.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## How the App Works
 
-### Advanced Configuration
+1. **Start at Login/Register**: Create an account or log in.
+2. **Select a Slot**: Pick a date and choose an available slot.
+3. **Choose Seats**: Select your preferred seat(s).
+4. **Complete Booking**: Confirm your booking and see a success message.
+5. **View Bookings**: Go to 'My Bookings' to see all your reservations.
+6. **Logout**: Use the header button to log out securely.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Key Screens & Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Login/Register**: Simple forms, clear error messages.
+- **Slots**: Date picker, slot cards, status legend.
+- **Seats**: Visual seat map, aisle, responsive design.
+- **Booking**: User info, slot details, confirmation.
+- **My Bookings**: List of bookings, status, details.
+- **Header**: Always visible, logout button, user greeting.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## How to Run the App
+
+1. **Install dependencies**: Run `npm install` in the project folder.
+2. **Start the app**: Run `npm start`.
+3. **Open in browser**: Go to [http://localhost:3000](http://localhost:3000).
+
+---
+
+## FAQ
+
+**Q: How do I book a seat?**
+A: Log in, select a slot, and confirm booking.
+
+**Q: How do I see my bookings?**
+A: Click 'My Bookings' in the menu or header.
+
+**Q: How do I log out?**
+A: Click the logout button in the header.
+
+**Q: What do the colors mean?**
+A: Green = available, Red = booked, Blue = primary actions.
+
+---
+
+## Need Help?
+
+If you have questions, ask your team or check the documentation above. This app is designed to be easy for everyone!
+
+---
+
+_Last updated: September 2025_
