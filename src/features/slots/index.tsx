@@ -3,7 +3,7 @@ import { Button, Typography, DatePicker, Skeleton } from "antd";
 import { CalendarOutlined } from "@ant-design/icons";
 import "./slots.scss";
 import Seats from "../../components/seats";
-import { actions, SlotTypes } from "../../redux/reducer";
+import { actions, SlotTypes, UserTypes } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoading, selectSlots } from "../../redux/selector";
 import dayjs, { Dayjs } from "dayjs";
@@ -27,6 +27,14 @@ const Slots: React.FC<SlotsProps> = () => {
   const slots = useSelector(selectSlots);
   const loading = useSelector(selectLoading);
 
+  const user: UserTypes | null = (() => {
+    const userStr = sessionStorage.getItem("user");
+    return userStr ? JSON.parse(userStr) : null;
+  })();
+
+  if (!user) {
+    window.location.href = "/login";
+  }
   const goToBookings = () => {
     window.location.href = "/bookings";
   };

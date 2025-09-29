@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import LoginForm from "../features/auths/login";
 import Slots from "../features/slots";
 import Bookings from "../features/bookings";
@@ -12,6 +12,7 @@ const Router = () => {
   return (
     <Routes>
       {/* Public routes */}
+      <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset" element={<ResetPassword />} />
