@@ -73,11 +73,16 @@ function* handleFetchSlots(action: PayloadAction<{ date: String }>) {
 }
 
 // ---- BOOKINGS SAGA ----
-function* handleCreateBooking(action: PayloadAction<any>) {
+function* handleCreateBooking(
+  action: PayloadAction<{ data: any; onSuccess?: () => void }>
+) {
   try {
-    const result: AxiosResponse = yield call(Api.createBooking, action.payload);
+    const result: AxiosResponse = yield call(Api.createBooking, action.payload.data);
     yield put(actions.fetchCreateBookingSuccess(result.data));
     toast.success("Booking created successfully");
+    if (action.payload.onSuccess) {
+      action.payload.onSuccess();
+    }
   } catch (error: any) {
     const message = error?.response?.data?.message;
     yield put(
@@ -112,17 +117,12 @@ function* handleFetchTodaysSlots() {
   }
 }
 
-function* handleCreateBookingAndUser(
-  action: PayloadAction<{ data: any; onSuccess?: () => void }>
-) {
+function* handleCreateBookingAndUser(action: PayloadAction<any>) {
   try {
     yield call(Api.createBookingAndUser, action.payload);
     yield put(actions.fetchCreateBookingAndUserSuccess());
     window.location.href = "/login";
     toast.success("User created and slot booked !");
-    if (action.payload.onSuccess) {
-      action.payload.onSuccess();
-    }
   } catch (error: any) {
     const message = error?.response?.data?.message;
     yield put(
