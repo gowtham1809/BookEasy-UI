@@ -1,28 +1,26 @@
-
 import { Layout as AntdLayout, Typography, Button, Popconfirm } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 
 import "./layout.scss";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actions, UserTypes } from "./redux/reducer";
+import { selectError, selectUser } from "./redux/selector";
 
 const { Header, Content } = AntdLayout;
 const { Title, Text } = Typography;
 
 const Layout: React.FC = () => {
-  //   const user: UserTypes = JSON.parse(localStorage.getItem("user") || "null");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(actions.logout());
     navigate("/login");
   };
-  const user: UserTypes | null = (() => {
-    const userStr = sessionStorage.getItem("user");
-    return userStr ? JSON.parse(userStr) : null;
-  })();
 
+  const user: UserTypes | null = useSelector(selectUser);
+  const error = useSelector(selectError);
+  if (error === "Unauthorized") navigate("/login");
   return (
     <AntdLayout>
       <Header className="header">

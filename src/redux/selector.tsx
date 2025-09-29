@@ -13,7 +13,7 @@ export const selectAuthLoading = createSelector(
   (mainState) => mainState.loading
 );
 
-export const selectAuthError = createSelector(
+export const selectError = createSelector(
   [selectMainDomain],
   (mainState) => mainState.error
 );

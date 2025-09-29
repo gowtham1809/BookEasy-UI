@@ -12,11 +12,11 @@ function* handleLogin(
   try {
     const result: AxiosResponse = yield call(Api.authLogin, action.payload);
     yield put(actions.loginSuccess(result.data));
-    sessionStorage.setItem("user", JSON.stringify(result.data));
     toast.success("Login successful");
   } catch (error: any) {
-    yield put(actions.loginFailure(error.message || "Login failed"));
-    toast.error(error.message || "Login failed");
+    const message = error?.response?.data?.message || "Login failed";
+    yield put(actions.loginFailure(message));
+    toast.error(message);
   }
 }
 
@@ -24,11 +24,11 @@ function* handleLogout() {
   try {
     yield call(Api.authLogout);
     yield put(actions.logoutSuccess());
-    sessionStorage.clear();
     toast.success("Logout successful");
   } catch (error: any) {
-    yield put(actions.logoutFailure(error.message || "Logout failed"));
-    toast.error(error.message || "Logout failed");
+    const message = error?.response?.data?.message || "Logout failed";
+    yield put(actions.logoutFailure(message));
+    toast.error(message);
   }
 }
 
@@ -39,11 +39,11 @@ function* handleResetPassword(
     const result: AxiosResponse = yield call(Api.resetPassword, action.payload);
     yield put(actions.logoutSuccess(result.data));
     toast.success(result.data.message);
-    sessionStorage.clear();
     window.location.href = "/login";
   } catch (error: any) {
-    yield put(actions.logoutFailure(error.message || "Logout failed"));
-    toast.error(error.message || "Logout failed");
+    const message = error?.response?.data?.message || "Logout failed";
+    yield put(actions.logoutFailure(message));
+    toast.error(message);
   }
 }
 
@@ -54,10 +54,9 @@ function* handleCreateUser(action: PayloadAction<any>) {
     toast.success("Registration successful");
     window.location.href = "/login";
   } catch (error: any) {
-    yield put(
-      actions.fetchCreateUserFailure(error.message || "Registration failed")
-    );
-    toast.error(error.message || "Registration failed");
+    const message = error?.response?.data?.message;
+    yield put(actions.fetchCreateUserFailure(message || "Registration failed"));
+    toast.error(message || "Registration failed");
   }
 }
 
@@ -67,10 +66,9 @@ function* handleFetchSlots(action: PayloadAction<{ date: String }>) {
     const result: AxiosResponse = yield call(Api.fetchSlots, action.payload);
     yield put(actions.fetchSlotsSuccess(result.data));
   } catch (error: any) {
-    yield put(
-      actions.fetchSlotsFailure(error.message || "Fetching slots failed")
-    );
-    toast.error(error.message || "Fetching slots failed");
+    const message = error?.response?.data?.message;
+    yield put(actions.fetchSlotsFailure(message || "Fetching slots failed"));
+    toast.error(message || "Fetching slots failed");
   }
 }
 
@@ -82,12 +80,11 @@ function* handleCreateBooking(action: PayloadAction<any>) {
     toast.success("Booking created successfully");
     window.location.href = "/bookings";
   } catch (error: any) {
+    const message = error?.response?.data?.message;
     yield put(
-      actions.fetchCreateBookingFailure(
-        error.message || "Creating booking failed"
-      )
+      actions.fetchCreateBookingFailure(message || "Creating booking failed")
     );
-    toast.error(error.message || "Creating booking failed");
+    toast.error(message || "Creating booking failed");
   }
 }
 function* handleFetchBookings(action: PayloadAction<any>) {
@@ -95,10 +92,11 @@ function* handleFetchBookings(action: PayloadAction<any>) {
     const result: AxiosResponse = yield call(Api.fetchBookings);
     yield put(actions.fetchBookingsSuccess(result.data));
   } catch (error: any) {
+    const message = error?.response?.data?.message;
     yield put(
-      actions.fetchBookingsFailure(error.message || "Fetching bookings failed")
+      actions.fetchBookingsFailure(message || "Fetching bookings failed")
     );
-    toast.error(error.message || "Fetching bookings failed");
+    toast.error(message || "Fetching bookings failed");
   }
 }
 
@@ -108,8 +106,9 @@ function* handleFetchTodaysSlots() {
     const result: AxiosResponse = yield call(Api.fetchTodaysSlots);
     yield put(actions.fetchTodaysSlotsSuccess(result.data));
   } catch (error: any) {
+    const message = error?.response?.data?.message;
     yield put(
-      actions.fetchTodaysSlotsFailure(error.message || "Failed to fetch slots")
+      actions.fetchTodaysSlotsFailure(message || "Failed to fetch slots")
     );
   }
 }
@@ -121,13 +120,11 @@ function* handleCreateBookingAndUser(action: any) {
     window.location.href = "/login";
     toast.success("User created and slot booked !");
   } catch (error: any) {
+    const message = error?.response?.data?.message;
     yield put(
-      actions.fetchCreateBookingAndUserFailure(
-        error.message || "Booking failed"
-      )
-      
+      actions.fetchCreateBookingAndUserFailure(message || "Booking failed")
     );
-    toast.error(error.message || "Booking failed");
+    toast.error(message || "Booking failed");
   }
 }
 // ---AUTH SAGA ---
@@ -138,8 +135,9 @@ function* handleCheckAuth(
     const result: AxiosResponse = yield call(Api.authMe);
     yield put(actions.checkAuthSuccess(result.data));
   } catch (error: any) {
-    yield put(actions.checkAuthSuccess(error.message || "Auth failed"));
-    toast.error(error.message || "Auth failed");
+    const message = error?.response?.data?.message;
+    yield put(actions.checkAuthSuccess(message || "Auth failed"));
+    toast.error(message || "Auth failed");
   }
 }
 

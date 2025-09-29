@@ -5,7 +5,7 @@ import "./slots.scss";
 import Seats from "../../components/seats";
 import { actions, SlotTypes, UserTypes } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoading, selectSlots } from "../../redux/selector";
+import { selectLoading, selectSlots, selectUser } from "../../redux/selector";
 import dayjs, { Dayjs } from "dayjs";
 import Booking from "../../components/booking";
 import { getTime12, timeIsInFuture } from "../../utils/dateUtils";
@@ -29,10 +29,7 @@ const Slots: React.FC<SlotsProps> = () => {
   const slots = useSelector(selectSlots);
   const loading = useSelector(selectLoading);
 
-  const user: UserTypes | null = (() => {
-    const userStr = sessionStorage.getItem("user");
-    return userStr ? JSON.parse(userStr) : null;
-  })();
+  const user: UserTypes | null = useSelector(selectUser);
 
   if (!user) {
     navigate("/login");
@@ -43,7 +40,7 @@ const Slots: React.FC<SlotsProps> = () => {
 
   // Fetch slots whenever the selectedDate changes
   useEffect(() => {
-    dispatch(actions.fetchSlots({ date: selectedDate.format("YYYY-MM-DD") }));
+      dispatch(actions.fetchSlots({ date: selectedDate.format("YYYY-MM-DD") }));
   }, [selectedDate, dispatch]);
 
   // Disable past dates

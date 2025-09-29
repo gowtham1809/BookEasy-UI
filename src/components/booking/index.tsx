@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTime12 } from "../../utils/dateUtils";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { selectLoading } from "../../redux/selector";
+import { selectLoading, selectUser } from "../../redux/selector";
 
 const { Title, Text } = Typography;
 
@@ -20,10 +20,7 @@ const Booking: React.FC<BookingProps> = ({ slot, selectedDate, onBack }) => {
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
 
-  const user: UserTypes | null = (() => {
-    const userStr = sessionStorage.getItem("user");
-    return userStr ? JSON.parse(userStr) : null;
-  })();
+ const user: UserTypes | null = useSelector(selectUser);
 
   const handleConfirm = () => {
     dispatch(

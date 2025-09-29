@@ -47,13 +47,13 @@ const slice = createSlice({
     // --- AUTH ---
     checkAuth(state) {
       state.loading = true;
-      state.error = '';
+      state.error = "";
     },
     checkAuthSuccess(state, action) {
       state.isAuthenticated = true;
       state.user = action.payload;
       state.loading = false;
-      state.error = '';
+      state.error = "";
     },
     checkAuthFailure(state, action) {
       state.isAuthenticated = false;
@@ -181,6 +181,10 @@ const slice = createSlice({
     fetchCreateBookingAndUserFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
+    },
+    clear(state) {
+      state.user = null;
+      state.isAuthenticated = false;
     },
   },
 });

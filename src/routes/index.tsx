@@ -7,7 +7,7 @@ import Register from "../features/auths/register";
 import Layout from "../layout";
 import BookingForm from "../components/booking/bookingForm";
 import ResetPassword from "../features/auths/reset";
-// import AuthenticateUser from "../auth";
+import AuthenticateUser from "../auth";
 
 const Router = () => {
   return (
@@ -20,12 +20,12 @@ const Router = () => {
       <Route path="/public-booking" element={<BookingForm />} />
 
       {/* Protected routes under Layout */}
-      {/* <Route path="/" element={<AuthenticateUser />}> */}
+      <Route path="/" element={<AuthenticateUser />}>
       <Route path="/" element={<Layout />}>
         <Route index element={<Slots />} />
         <Route path="/slots" element={<Slots />} />
         <Route path="bookings" element={<Bookings />} />
-        {/* </Route> */}
+        </Route>
       </Route>
     </Routes>
   );

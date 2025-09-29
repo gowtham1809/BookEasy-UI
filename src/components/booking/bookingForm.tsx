@@ -5,7 +5,7 @@ import "./booking.scss";
 import { actions, SlotTypes, UserTypes } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { getTime12 } from "../../utils/dateUtils";
-import { selectSlots, selectLoading } from "../../redux/selector";
+import { selectSlots, selectLoading, selectUser } from "../../redux/selector";
 
 const { Title, Text } = Typography;
 
@@ -20,12 +20,13 @@ const BookingForm: React.FC<BookingProps> = () => {
   });
   const dispatch = useDispatch();
 
-  const user: UserTypes | null = (() => {
-    const userStr = sessionStorage.getItem("user");
-    return userStr ? JSON.parse(userStr) : null;
-  })();
+  const user: UserTypes | null = useSelector(selectUser);
   const slots = useSelector(selectSlots);
   const loading = useSelector(selectLoading);
+
+  useEffect(() => {
+    dispatch(actions.clear());
+  });
 
   useEffect(() => {
     if (!loading && !user) dispatch(actions.fetchTodaysSlots());
