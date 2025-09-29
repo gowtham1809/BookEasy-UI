@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Typography,
-  Select,
-  Skeleton,
-} from "antd";
-import { UserOutlined, MailOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Typography, Select, Skeleton } from "antd";
+import { UserOutlined, MailOutlined, WarningOutlined } from "@ant-design/icons";
 import "./booking.scss";
 import { actions, SlotTypes, UserTypes } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,15 +28,13 @@ const BookingForm: React.FC<BookingProps> = () => {
   const loading = useSelector(selectLoading);
 
   useEffect(() => {
-    if (!user) {
-      dispatch(actions.fetchTodaysSlots());
-    }
+    if (!loading && !user) dispatch(actions.fetchTodaysSlots());
   }, [user]);
 
   const handleConfirm = () => {
     dispatch(actions.fetchCreateBookingAndUser(userDetails));
   };
-  const availableSlots = slots.filter((s:SlotTypes) => s.available);
+  const availableSlots = slots.filter((s: SlotTypes) => s.available);
 
   return (
     <div className="booking-container">
@@ -91,7 +82,7 @@ const BookingForm: React.FC<BookingProps> = () => {
           label="Select Today's Slot"
           rules={[{ required: true, message: "Please select a slot" }]}
         >
-          {loading ? (
+          {slots.length === 0 && loading ? (
             <Skeleton.Input active style={{ width: 200 }} />
           ) : (
             <Select
@@ -125,14 +116,24 @@ const BookingForm: React.FC<BookingProps> = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Confirm Booking
           </Button>
         </Form.Item>
         <div style={{ marginTop: 24 }}>
+          {availableSlots.length === 0 && !loading && (
+            <>
+              <Text style={{ color: "#faad14" }}>
+                <WarningOutlined style={{ marginRight: 6 }} />
+                Today’s slots are already booked.
+              </Text>
+              <br />
+            </>
+          )}
           <Text type="secondary">
-            For view seats or future bookings, please be a{" "}
-            <a href="/register">Register User</a>.
+            {" "}
+            To view seatings or book for upcoming dates, kindly{" "}
+            <a href="/register">register</a>.
           </Text>
         </div>
       </Form>

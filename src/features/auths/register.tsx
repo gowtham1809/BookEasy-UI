@@ -4,10 +4,12 @@ import "./register.scss";
 import { actions } from "../../redux/reducer";
 import { useDispatch} from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const { Title, Text } = Typography;
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [registerForm, setRegisterForm] = useState({
     name: "",
     email: "",
@@ -114,7 +116,7 @@ const Register: React.FC = () => {
         <Button
           type="link"
           className="login-link"
-          onClick={() => (window.location.href = "/login")}
+          onClick={() => (navigate("/login"))}
         >
           Back to login
         </Button>

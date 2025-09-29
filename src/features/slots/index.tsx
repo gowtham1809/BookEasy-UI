@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography, DatePicker, Skeleton } from "antd";
-import { CalendarOutlined } from "@ant-design/icons";
+import { CalendarOutlined, WarningOutlined } from "@ant-design/icons";
 import "./slots.scss";
 import Seats from "../../components/seats";
 import { actions, SlotTypes, UserTypes } from "../../redux/reducer";
@@ -10,6 +10,7 @@ import dayjs, { Dayjs } from "dayjs";
 import Booking from "../../components/booking";
 import { getTime12, timeIsInFuture } from "../../utils/dateUtils";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -23,6 +24,7 @@ const Slots: React.FC<SlotsProps> = () => {
   const [showSeats, setSeats] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const slots = useSelector(selectSlots);
   const loading = useSelector(selectLoading);
@@ -33,15 +35,15 @@ const Slots: React.FC<SlotsProps> = () => {
   })();
 
   if (!user) {
-    window.location.href = "/login";
+    navigate("/login");
   }
   const goToBookings = () => {
-    window.location.href = "/bookings";
+    navigate("/bookings");
   };
 
   // Fetch slots whenever the selectedDate changes
   useEffect(() => {
-    dispatch(actions.fetchSlots({ date: selectedDate.toISOString() }));
+    dispatch(actions.fetchSlots({ date: selectedDate.format("YYYY-MM-DD") }));
   }, [selectedDate, dispatch]);
 
   // Disable past dates
@@ -49,23 +51,15 @@ const Slots: React.FC<SlotsProps> = () => {
     return current && current < dayjs().startOf("day");
   };
 
-  if (loading) {
-    return (
-      <div style={{ maxWidth: 600, margin: "32px auto", padding: "18px 24px" }}>
-        <Skeleton active paragraph={{ rows: 6 }} />
-      </div>
-    );
-  }
-
+  const allSlotsAreBooked = slots.every((s: SlotTypes) => !s.available);
   const formattedDate = selectedDate.format("dddd, MMMM D, YYYY");
   const handleBooking = () => {
     setShowBooking((prev) => !prev);
     setSeats(false);
   };
-  const isToday = dayjs(selectedDate).isSame(dayjs(), "day");
+
   const handleSlots = (slot: SlotTypes) => {
-    console.log(timeIsInFuture(slot.start_time));
-    if ((isToday ? timeIsInFuture(slot.start_time) : true) && slot.available) {
+    if (slot.available) {
       setShowBooking(false);
       setSeats(true);
       setSelectedSlot(slot);
@@ -84,7 +78,8 @@ const Slots: React.FC<SlotsProps> = () => {
       {showBooking && selectedSlot && (
         <Booking
           slot={selectedSlot}
-          selectedDate={selectedDate.toISOString()}
+          selectedDate={selectedDate.format("YYYY-MM-DD")}
+          onBack={onBack}
         />
       )}
       {selectedSlot && showSeats && (
@@ -103,49 +98,61 @@ const Slots: React.FC<SlotsProps> = () => {
               My Bookings
             </Button>
           </div>
-          <div className="date-picker">
-            <Text>Select the Date</Text>
-            <DatePicker
-              value={selectedDate}
-              onChange={(date) => date && setSelectedDate(date)}
-              disabledDate={disabledDate}
-            />
-          </div>
+          {loading ? (
+            <Skeleton active paragraph={{ rows: 6 }} />
+          ) : (
+            <>
+              <div className="date-picker">
+                <Text>Select the Date</Text>
+                <DatePicker
+                  value={selectedDate}
+                  onChange={(date) => date && setSelectedDate(date)}
+                  disabledDate={disabledDate}
+                />
+              </div>
 
-          <div className="slot-group">
-            <div className="slot-group-header">
-              <CalendarOutlined className="icon" />
-              <Text strong style={{ marginLeft: 10 }}>
-                {formattedDate}
-              </Text>
-            </div>
-            <div className="slots-cards">
-              {slots?.map((slot: any) => (
-                <div
-                  key={slot.id}
-                  className={`slot-card ${
-                    (isToday ? timeIsInFuture(slot.start_time) : true) &&
-                    slot.available
-                      ? "available"
-                      : "unavailable"
-                  }`}
-                  onClick={() => handleSlots(slot)}
-                >
-                  <p>{getTime12(slot.start_time)}</p>
+              <div className="slot-group">
+                <div className="slot-group-header">
+                  <CalendarOutlined className="icon" />
+                  <Text strong style={{ marginLeft: 10 }}>
+                    {formattedDate}
+                  </Text>
+                  {allSlotsAreBooked && (
+                    <>
+                      <Text style={{ color: "#faad14" }}>
+                        <WarningOutlined style={{ marginRight: 6 }} />
+                        All slots are booked.
+                      </Text>
+                      <br />
+                    </>
+                  )}
                 </div>
-              ))}
-            </div>
-            <div className="status-container">
-              <div className="status-item">
-                <div className="status-box available"></div>
-                <span>Available</span>
+                <div className="slots-cards">
+                  {slots?.map((slot: any) => (
+                    <div
+                      key={slot.id}
+                      className={`slot-card ${
+                        slot.available ? "available" : "unavailable"
+                      }`}
+                      onClick={() => handleSlots(slot)}
+                    >
+                      <p>{getTime12(slot.start_time)}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="status-container">
+                  <div className="status-item">
+                    <div className="status-box available"></div>
+                    <span>Available</span>
+                  </div>
+                  <div className="status-item">
+                    <div className="status-box booked"></div>
+                    <span>Booked</span>
+                  </div>
+                </div>
               </div>
-              <div className="status-item">
-                <div className="status-box booked"></div>
-                <span>Booked</span>
-              </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
       )}
     </>

@@ -14,7 +14,6 @@ function* handleLogin(
     yield put(actions.loginSuccess(result.data));
     sessionStorage.setItem("user", JSON.stringify(result.data));
     toast.success("Login successful");
-    window.location.href = "/slots";
   } catch (error: any) {
     yield put(actions.loginFailure(error.message || "Login failed"));
     toast.error(error.message || "Login failed");
@@ -27,7 +26,6 @@ function* handleLogout() {
     yield put(actions.logoutSuccess());
     sessionStorage.clear();
     toast.success("Logout successful");
-    window.location.href = "/login";
   } catch (error: any) {
     yield put(actions.logoutFailure(error.message || "Logout failed"));
     toast.error(error.message || "Logout failed");
@@ -127,12 +125,27 @@ function* handleCreateBookingAndUser(action: any) {
       actions.fetchCreateBookingAndUserFailure(
         error.message || "Booking failed"
       )
+      
     );
+    toast.error(error.message || "Booking failed");
+  }
+}
+// ---AUTH SAGA ---
+function* handleCheckAuth(
+  action: PayloadAction<{ email: string; password: string }>
+) {
+  try {
+    const result: AxiosResponse = yield call(Api.authMe);
+    yield put(actions.checkAuthSuccess(result.data));
+  } catch (error: any) {
+    yield put(actions.checkAuthSuccess(error.message || "Auth failed"));
+    toast.error(error.message || "Auth failed");
   }
 }
 
 // ---- ROOT SAGA ----
 export default function* rootSaga() {
+  yield takeLatest(actions.checkAuth.type, handleCheckAuth);
   yield takeLatest(actions.login.type, handleLogin);
   yield takeLatest(actions.logout.type, handleLogout);
   yield takeLatest(actions.resetPassword.type, handleResetPassword);

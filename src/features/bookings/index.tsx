@@ -6,6 +6,7 @@ import { actions, BookingTypes } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBookings, selectLoading } from "../../redux/selector";
 import { getTime12 } from "../../utils/dateUtils";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -16,9 +17,10 @@ interface BookingsProps {
 
 const Bookings: React.FC<BookingsProps> = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const goToSlots = () => {
-    window.location.href = "/slots";
+    navigate("/slots");
   };
 
   useEffect(() => {
@@ -27,24 +29,19 @@ const Bookings: React.FC<BookingsProps> = () => {
 
   const bookings = useSelector(selectBookings);
   const loading = useSelector(selectLoading);
-  if (loading) {
-    return (
-      <div className="bookings-container">
-        <Skeleton active paragraph={{ rows: 6 }} />
-      </div>
-    );
-  }
 
   return (
     <div className="bookings-container">
       <div className="bookings-header">
         <Title level={3}>My Bookings</Title>
 
-        <Button type="link" onClick={() => (window.location.href = "/slots")}>
+        <Button type="link" onClick={() => navigate("/slots")}>
           Available Slots
         </Button>
       </div>
-      {bookings.length === 0 ? (
+      {loading ? (
+        <Skeleton active paragraph={{ rows: 6 }} />
+      ) : bookings.length === 0 ? (
         <div className="no-bookings">
           <CalendarOutlined className="no-bookings-icon" />
           <Text>No bookings yet. Book your first slot!</Text>

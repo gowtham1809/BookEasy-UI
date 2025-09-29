@@ -4,11 +4,13 @@ import "./reset.scss";
 import { actions } from "../../redux/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoading } from "../../redux/selector";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 const ResetPassword: React.FC = () => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
   const loading = useSelector(selectLoading);
 
   const [resetForm, setResetForm] = useState({
@@ -84,7 +86,7 @@ const ResetPassword: React.FC = () => {
         <Button
           type="link"
           className="login-link"
-          onClick={() => (window.location.href = "/login")}
+          onClick={() => (navigate("/login"))}
         >
           Back to Login
         </Button>

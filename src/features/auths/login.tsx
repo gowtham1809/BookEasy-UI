@@ -3,19 +3,23 @@ import { Form, Input, Button, Typography, Card } from "antd";
 import "./login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../redux/reducer";
-import { selectAuthLoading } from "../../redux/selector";
+import {  selectIsAuthenticated, selectLoading } from "../../redux/selector";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 const LoginForm: React.FC = () => {
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const loading = useSelector(selectAuthLoading);
+  const loading = useSelector(selectLoading);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const handleLogin = async () => {
     dispatch(actions.login(loginForm));
   };
+  if (isAuthenticated) navigate("/slots");
 
   return (
     <div className="login-container">
@@ -81,14 +85,14 @@ const LoginForm: React.FC = () => {
         <Button
           type="link"
           className="register-link"
-          onClick={() => (window.location.href = "/register")}
+          onClick={() => navigate("/register")}
         >
           Don't have an account? Register
         </Button>
         <Button
           type="link"
           className="register-link"
-          onClick={() => (window.location.href = "/reset")}
+          onClick={() => navigate("/reset")}
         >
           Forgot password?
         </Button>

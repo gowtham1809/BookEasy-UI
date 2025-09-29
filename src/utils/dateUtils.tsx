@@ -22,8 +22,6 @@ export const getFormattedDateAndTime = (
 };
 export const timeIsInFuture = (start_time: string): boolean => {
   const today = dayjs();
-  const getTime = dayjs(start_time, "HH:mm:ss");
-  const slotDateTime = dayjs(`${today}T${getTime}`);
-  console.log({ start_time, slotDateTime, today });
+  const slotDateTime = dayjs(`${today.format("YYYY-MM-DD")}T${start_time}`);
   return slotDateTime.isAfter(today);
 };

@@ -44,6 +44,23 @@ const slice = createSlice({
   name: "states",
   initialState,
   reducers: {
+    // --- AUTH ---
+    checkAuth(state) {
+      state.loading = true;
+      state.error = '';
+    },
+    checkAuthSuccess(state, action) {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+      state.loading = false;
+      state.error = '';
+    },
+    checkAuthFailure(state, action) {
+      state.isAuthenticated = false;
+      state.user = null;
+      state.loading = false;
+      state.error = action.payload;
+    },
     // --- LOGIN ---
     login(state, _action: PayloadAction<{ email: string; password: string }>) {
       state.loading = true;
