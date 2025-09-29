@@ -8,6 +8,7 @@ import Layout from "../layout";
 import BookingForm from "../components/booking/bookingForm";
 import ResetPassword from "../features/auths/reset";
 import AuthenticateUser from "../auth";
+import NotFound from "../components/notFound";
 
 const Router = () => {
   return (
@@ -21,12 +22,13 @@ const Router = () => {
 
       {/* Protected routes under Layout */}
       <Route path="/" element={<AuthenticateUser />}>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Slots />} />
-        <Route path="/slots" element={<Slots />} />
-        <Route path="bookings" element={<Bookings />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Slots />} />
+          <Route path="/slots" element={<Slots />} />
+          <Route path="bookings" element={<Bookings />} />
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

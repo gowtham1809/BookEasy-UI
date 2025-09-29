@@ -78,7 +78,6 @@ function* handleCreateBooking(action: PayloadAction<any>) {
     const result: AxiosResponse = yield call(Api.createBooking, action.payload);
     yield put(actions.fetchCreateBookingSuccess(result.data));
     toast.success("Booking created successfully");
-    window.location.href = "/bookings";
   } catch (error: any) {
     const message = error?.response?.data?.message;
     yield put(

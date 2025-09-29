@@ -29,6 +29,7 @@ const Booking: React.FC<BookingProps> = ({ slot, selectedDate, onBack }) => {
         booking_date: selectedDate,
       })
     );
+    navigate("/bookings")
   };
   if (!user) {
     toast.error("PLease Login and then Continue !");
