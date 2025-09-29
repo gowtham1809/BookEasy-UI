@@ -20,16 +20,19 @@ const Booking: React.FC<BookingProps> = ({ slot, selectedDate, onBack }) => {
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
 
- const user: UserTypes | null = useSelector(selectUser);
+  const user: UserTypes | null = useSelector(selectUser);
 
+  const data = {
+    slot_id: slot?.id,
+    booking_date: selectedDate,
+  };
   const handleConfirm = () => {
     dispatch(
       actions.fetchCreateBooking({
-        slot_id: slot?.id,
-        booking_date: selectedDate,
+        data,
+        onSuccess: () => navigate("/bookings"),
       })
     );
-    navigate("/bookings")
   };
   if (!user) {
     toast.error("PLease Login and then Continue !");

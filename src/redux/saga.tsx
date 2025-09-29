@@ -112,12 +112,17 @@ function* handleFetchTodaysSlots() {
   }
 }
 
-function* handleCreateBookingAndUser(action: any) {
+function* handleCreateBookingAndUser(
+  action: PayloadAction<{ data: any; onSuccess?: () => void }>
+) {
   try {
     yield call(Api.createBookingAndUser, action.payload);
     yield put(actions.fetchCreateBookingAndUserSuccess());
     window.location.href = "/login";
     toast.success("User created and slot booked !");
+    if (action.payload.onSuccess) {
+      action.payload.onSuccess();
+    }
   } catch (error: any) {
     const message = error?.response?.data?.message;
     yield put(
