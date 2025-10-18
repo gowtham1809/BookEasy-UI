@@ -48,7 +48,7 @@ const Slots: React.FC<SlotsProps> = () => {
     return current && current < dayjs().startOf("day");
   };
 
-  const allSlotsAreBooked = slots.every((s: SlotTypes) => !s.available);
+  const allSlotsAreBooked = slots?.every((s: SlotTypes) => !s?.available);
   const formattedDate = selectedDate.format("dddd, MMMM D, YYYY");
   const handleBooking = () => {
     setShowBooking((prev) => !prev);
@@ -114,7 +114,7 @@ const Slots: React.FC<SlotsProps> = () => {
                   <Text strong style={{ marginLeft: 10 }}>
                     {formattedDate}
                   </Text>
-                  {allSlotsAreBooked && (
+                  {allSlotsAreBooked && slots && (
                     <>
                       <Text style={{ color: "#faad14" }}>
                         <WarningOutlined style={{ marginRight: 6 }} />
@@ -136,6 +136,9 @@ const Slots: React.FC<SlotsProps> = () => {
                       <p>{getTime12(slot.start_time)}</p>
                     </div>
                   ))}
+                    {slots?.length === 0 && (
+                      <Text>Slots Not Found Available.</Text>
+                    )}
                 </div>
                 <div className="status-container">
                   <div className="status-item">

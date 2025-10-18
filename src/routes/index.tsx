@@ -20,14 +20,16 @@ const Router = () => {
       <Route path="/reset" element={<ResetPassword />} />
       <Route path="/public-booking" element={<BookingForm />} />
 
-      {/* Protected routes under Layout */}
-      <Route path="/" element={<AuthenticateUser />}>
-        <Route path="/" element={<Layout />}>
+      {/* Protected routes */}
+      <Route element={<AuthenticateUser />}>
+        <Route element={<Layout />}>
           <Route index element={<Slots />} />
           <Route path="/slots" element={<Slots />} />
-          <Route path="bookings" element={<Bookings />} />
+          <Route path="/bookings" element={<Bookings />} />
         </Route>
       </Route>
+
+      {/* Fallback */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
