@@ -18,6 +18,7 @@ const LoginForm: React.FC = () => {
 
   const handleLogin = async () => {
     dispatch(actions.login(loginForm));
+    setLoginForm({ email: "", password: "" })
   };
   if (isAuthenticated) navigate("/slots");
 

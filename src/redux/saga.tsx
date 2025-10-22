@@ -51,7 +51,7 @@ function* handleCreateUser(action: PayloadAction<any>) {
   try {
     const result: AxiosResponse = yield call(Api.registerUser, action.payload);
     yield put(actions.fetchCreateUserSuccess(result.data));
-    toast.success("Registration successful");
+    toast.success("Registration Successful! Please Login.");
     window.location.href = "/login";
   } catch (error: any) {
     const message = error?.response?.data?.message;
@@ -140,7 +140,7 @@ function* handleCheckAuth(
     yield put(actions.checkAuthSuccess(result.data));
   } catch (error: any) {
     const message = error?.response?.data?.message;
-    yield put(actions.checkAuthSuccess(message || "Auth failed"));
+    yield put(actions.checkAuthFailure(message || "Auth failed"));
     toast.error(message || "Auth failed");
   }
 }

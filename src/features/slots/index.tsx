@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoading, selectSlots, selectUser } from "../../redux/selector";
 import dayjs, { Dayjs } from "dayjs";
 import Booking from "../../components/booking";
-import { getTime12, timeIsInFuture } from "../../utils/dateUtils";
+import { getTime12 } from "../../utils/dateUtils";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 

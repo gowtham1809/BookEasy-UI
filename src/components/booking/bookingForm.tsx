@@ -24,13 +24,13 @@ const BookingForm: React.FC<BookingProps> = () => {
   const slots = useSelector(selectSlots);
   const loading = useSelector(selectLoading);
 
-  useEffect(() => {
-    dispatch(actions.clear());
-  });
+  // const handleClear = () => {
+  //   dispatch(actions.clear());
+  // };
 
   useEffect(() => {
     if (!loading && !user) dispatch(actions.fetchTodaysSlots());
-  }, [user]);
+  }, [user, loading, dispatch]);
 
   const handleConfirm = () => {
     dispatch(actions.fetchCreateBookingAndUser(userDetails));

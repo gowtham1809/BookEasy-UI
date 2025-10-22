@@ -22,6 +22,13 @@ const Register: React.FC = () => {
       return toast.error("Passwords do not match!");
     }
     dispatch(actions.fetchCreateUser(registerForm));
+    setRegisterForm({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+
   };
   return (
     <div className="register-container">

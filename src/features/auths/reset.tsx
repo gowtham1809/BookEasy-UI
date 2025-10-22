@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 const { Title, Text } = Typography;
 
 const ResetPassword: React.FC = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loading = useSelector(selectLoading);
 
   const [resetForm, setResetForm] = useState({
@@ -18,13 +18,17 @@ const ResetPassword: React.FC = () => {
     password: "",
   });
 
-    const handleReset = async () => {
+  const handleReset = async () => {
     dispatch(
       actions.resetPassword({
         email: resetForm.email,
         password: resetForm.password,
       })
     );
+    setResetForm({
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -86,7 +90,7 @@ const ResetPassword: React.FC = () => {
         <Button
           type="link"
           className="login-link"
-          onClick={() => (navigate("/login"))}
+          onClick={() => navigate("/login")}
         >
           Back to Login
         </Button>

@@ -47,7 +47,6 @@ const slice = createSlice({
     // --- AUTH ---
     checkAuth(state) {
       state.loading = true;
-      state.isAuthenticated = false;
       state.error = "";
     },
     checkAuthSuccess(state, action) {
