@@ -30,7 +30,7 @@ const BookingForm: React.FC<BookingProps> = () => {
 
   useEffect(() => {
     if (!loading && !user) dispatch(actions.fetchTodaysSlots());
-  }, [user, loading, dispatch]);
+  }, [user]);
 
   const handleConfirm = () => {
     dispatch(actions.fetchCreateBookingAndUser(userDetails));
