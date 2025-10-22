@@ -29,11 +29,6 @@ const Slots: React.FC<SlotsProps> = () => {
   const slots = useSelector(selectSlots);
   const loading = useSelector(selectLoading);
 
-  const user: UserTypes | null = useSelector(selectUser);
-
-  if (!user) {
-    navigate("/login");
-  }
   const goToBookings = () => {
     navigate("/bookings");
   };

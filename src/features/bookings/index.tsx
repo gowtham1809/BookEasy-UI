@@ -25,7 +25,7 @@ const Bookings: React.FC<BookingsProps> = () => {
 
   useEffect(() => {
     dispatch(actions.fetchBookings());
-  });
+  },[]);
 
   const bookings = useSelector(selectBookings);
   const loading = useSelector(selectLoading);

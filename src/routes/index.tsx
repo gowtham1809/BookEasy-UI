@@ -14,7 +14,7 @@ const Router = () => {
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/" element={<Navigate to="/public-booking" />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset" element={<ResetPassword />} />
